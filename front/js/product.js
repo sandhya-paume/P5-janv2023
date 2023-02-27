@@ -1,11 +1,9 @@
-import { getData } from './tools.js';
+import { getData, isCartEmpty } from './tools.js';
 
 const id = getIdFromUrl();
 const product = await getData ('http://localhost:3000/api/products/' + id);
 display(product);
 cart();
-
-
 
 
 function cart()
@@ -33,40 +31,42 @@ document.getElementById('addToCart').addEventListener('click', () =>
     // Récupération de tous les produits du panier (s'il y en a)
     let keys = Object.keys(localStorage);
     // Vérification du nombre de produits dans le panier
-    let isCartEmpty=keys.length;
+    let qtyItemsInCart=keys.length;
     // Initialisation du produit à ajouter
-    const products = [];
-        alert('Nombre de produits dans le panier : '+isCartEmpty);
+    let products = [];
+    
+        //alert('Nombre de produits dans le panier : '+qtyItemsInCart);
     // Si le panier n'est pas vide    
-    if (isCartEmpty>0)
+    if (!isCartEmpty())
     {
+        products = JSON.parse(localStorage.getItem('products'));
         // Création de la clé produit (products- nombre de produits dans le panier +1)
-        let refProduit = 'products-'+Number(isCartEmpty+1);
+        //let refProduit = 'products-'+Number(qtyItemsInCart+1); alert(refProduit);
         // Récupérer les données du panier
-        for(let key of keys) {    
+        let isInCart=false;
+        for(let product of products) {    
             // Récupération de la clé courante     
-            let text = localStorage.getItem(`${key}`);
-            // Récupération des valeurs de la clé courante
-            let CurrentProduct = JSON.parse(text);
-            let prod = CurrentProduct[0];
-            if (!CurrentProduct[0])
-            {
-                prod = CurrentProduct;
-            }
+            
+            let prod = product;
+            
             // Vérifier si le produit et la couleur sont déjà dans le panier 
             if (prod.id == id && prod.color == color)
                 {
-                qty = Number(qty)+Number(prod.qty);
-                refProduit = `${key}`;
+                console.log(prod.id);
+                prod.qty = Number(qty)+Number(prod.qty);
+                isInCart=true;
                 }
               }
 
+            if (isInCart==false)
+            {
             products.push({
             id: id,
             color: color,
             qty: qty
-        })
-        localStorage.setItem(refProduit, JSON.stringify(products));
+            })
+            }
+        localStorage.setItem('products', JSON.stringify(products));
     }
     else //quand le panier est vide
     {
@@ -77,7 +77,7 @@ document.getElementById('addToCart').addEventListener('click', () =>
             color: color,
             qty: qty
         }) 
-        localStorage.setItem('products-1', JSON.stringify(products));
+        localStorage.setItem('products', JSON.stringify(products));
     // Ajouter un autre produit
     // Récupérer les données du panier
     // Vérifier si le produit que je veux ajouter est déjà présent:
