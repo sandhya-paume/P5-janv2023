@@ -46,100 +46,10 @@ products.forEach(product => {
         </div>
       </div>
     </div>              </article>`;
-
-    /* ce que j'ai fait, c'est correcte mais trop long, compliqué et prend trop de place dans le code
-    article.className="cart__item";
-    article.dataset.id= product._id;
-    article.dataset.color=product.color;
-    
-    // Div image du produit
-    const cart__item__img = document.createElement("div");
-    cart__item__img.className="cart__item__img";
-
-    // Div image du produit
-    const img= document.createElement("img");
-    img.src= product.imageUrl;
-    img.alt= product.altTxt;
-
-    // Div contenu du panier
-    const cart__item__content=document.createElement("div");
-    cart__item__content.className="cart__item__content";
-
-    // Div description du contenu du panier
-    const cart__item__content__description=document.createElement("div");
-    cart__item__content__description.className="cart__item__content__description";
-
-    // H2 nom du produit
-    const h2=document.createElement("h2");
-    h2.innerHTML= product.name;
-
-    // P couleur du produit
-    const p_color=document.createElement("p");
-    p_color.innerHTML= product.color;
-
-      // P prix du produit
-      const p_price=document.createElement("p");
-        p_price.innerHTML= product.price;
-
-      // Div paramètre du panier
-      const cart__item__content__settings = document.createElement("div");
-      cart__item__content__settings.className="cart__item__content__settings";
-
-      // Div quantité de produit dans le panier
-      const cart__item__content__settings__quantity = document.createElement("div");
-      cart__item__content__settings__quantity.className="cart__item__content__settings__quantity";
-
-      // P quantité du produit dans le panier
-      const p_qty=document.createElement("p");
-      p_qty.innerHTML= "Qté : ";
-
-      // Input type
-      const input=document.createElement("input");
-      input.type="number";
-      input.className="itemQuantity";
-      input.name="itemQuantity";
-      input.min=1;
-      input.max=10;
-      input.value=product.qty;
-     
-      // Div suppression d'article
-      const cart__item__content__settings__delete = document.createElement("div");
-      cart__item__content__settings__delete.className="cart__item__content__settings__delete";
-
-    //  P suppression d'article
-    const p_delete=document.createElement("p");
-      p_delete.className= 'deleteItem';
-      p_delete.innerHTML= "Supprimer";
-
-
-{*/
-
- 
-
       
     // Rattachement
     const items = document.querySelector("#cart__items") ;   
     items.appendChild(div);
-
-    /* ce que j'ai fait, c'est correcte mais trop long, compliqué et prend trop de place dans le code
-
-    article.appendChild(cart__item__img);
-    cart__item__img.appendChild(img);
-
-    article.appendChild(cart__item__content);
-    cart__item__content.appendChild(cart__item__content__description);
-    cart__item__content__description.appendChild(h2);
-    cart__item__content__description.appendChild(p_color);
-    cart__item__content__description.appendChild(p_price);
-
-   article.appendChild(cart__item__content__settings);
-   cart__item__content__settings.appendChild(cart__item__content__settings__quantity);
-   cart__item__content__settings__quantity.appendChild(p_qty);
-   cart__item__content__settings__quantity.appendChild(input);
-
-   cart__item__content__settings.appendChild(cart__item__content__settings__delete);
-   cart__item__content__settings__delete.appendChild(p_delete); */  
-   
 })
 
 const totalQuantity = document.querySelector("#totalQuantity");
@@ -217,7 +127,7 @@ async function buildCompleteList()
 {
   let products  = [] ;
   products = JSON.parse(localStorage.getItem('products'));
-  // Récupérer les données du panier
+  // Récupération des données du panier
   for(let product of products) {    
          
     const product_prop = await getData ('http://localhost:3000/api/products/' + product.id);
@@ -236,14 +146,14 @@ async function order(event)
   // Empêcher l'envoi du formulaire par défaut
   event.preventDefault();
 
-  // Récupérer les valeurs des champs du formulaire
+  // Récupération des valeurs des champs du formulaire
 const firstName = document.getElementById("firstName").value;
 const lastName = document.getElementById("lastName").value;
 const address = document.getElementById("address").value;
 const city = document.getElementById("city").value;
 const email = document.getElementById("email").value;
 
-// Créer un objet contact à partir des valeurs récupérées
+// Création d'un objet contact à partir des valeurs récupérées
 const contact = {
   firstName: firstName,
   lastName: lastName,
@@ -252,13 +162,13 @@ const contact = {
   email: email
 };
 
-// Définir les expressions régulières pour chaque champ
+// Définition des expressions régulières pour chaque champ
 const nameRegex = /^[a-zA-Zéèêëôœîïûüàáâæç-\s]{2,}$/; // Accepte les lettres, tirets, espaces, et doit contenir au moins 2 caractères
 const addressRegex = /^[a-zA-Z0-9éèêëôœîïûüàáâæç-\s]{2,}$/; // Accepte les lettres, chiffres, tirets, espaces, et doit contenir au moins 2 caractères
 const cityRegex = /^[a-zA-Zéèêëôœîïûüàáâæç-\s]{2,}$/; // Accepte les lettres, tirets, espaces, et doit contenir au moins 2 caractères
 const emailRegex = /^\S+@\S+\.\S+$/; // Vérifie que l'email est au format correct
 
-// Vérifier chaque champ avec son expression régulière
+// Vérification de chaque champ avec son expression régulière
 if (!nameRegex.test(firstName)) {
   document.getElementById("firstNameErrorMsg").innerHTML = "Le prénom doit contenir au moins 2 lettres et ne peut contenir que des lettres, des espaces et des tirets.";
 }
