@@ -4,30 +4,43 @@ async function getData(url)
     return await reponse.json();
 }
 
-async function sendData(url,order){
+async function sendData(url,order)
+{
    // Envoie la commande à l'API
-fetch(url, {
-    method: "POST",
-    body: JSON.stringify(order),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log(`Order ID: ${data.orderId}`);
-  })
-  .catch(error => {
-    console.error("Error submitting order:", error);
-  });
+    return fetch(url, 
+    {
+        method: "POST",
+        body: JSON.stringify(order),
+        headers: 
+        {
+          "Content-Type": "application/json"
+        }
+    })
+    .then(response => response.json())
+    .catch(error => 
+    {
+        console.error("Error submitting order:", error);
+    });
 }
 
 function isCartEmpty()
 {
  // Récupération de tous les produits du panier (s'il y en a)
- let keys = Object.keys(localStorage);
+  let keys = Object.keys(localStorage);
  // Vérification du nombre de produits dans le panier
- return keys.length === 0
+  return keys.length === 0
 }
-export {getData, isCartEmpty,sendData}; 
+
+function formatPrice(amount)
+{
+    const formatter = new Intl.NumberFormat('fr-FR', 
+    {
+      style: 'currency',
+      currency: 'EUR',
+    })
+
+    return formatter.format(amount);
+}
+
+export {getData, isCartEmpty,sendData, formatPrice}; 
 
