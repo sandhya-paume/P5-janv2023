@@ -21,6 +21,7 @@ function cart()
         let qty = Number(document.querySelector('[name="itemQuantity"]').value);
         const color =  document.querySelector('[id="colors"]').value;
 
+        alert('Votre produit a bien été ajouté au panier !');
         
 
         if (color.length === 0)
