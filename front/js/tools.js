@@ -1,11 +1,9 @@
-async function getData(url)
-{
+async function getData(url){
     const reponse = await fetch(url);
     return await reponse.json();
 }
 
-async function sendData(url,order)
-{
+async function sendData(url,order){
    // Envoie la commande à l'API
     return fetch(url, 
     {
@@ -23,16 +21,14 @@ async function sendData(url,order)
     });
 }
 
-function isCartEmpty()
-{
+function isCartEmpty(){
  // Récupération de tous les produits du panier (s'il y en a)
   let keys = Object.keys(localStorage);
  // Vérification du nombre de produits dans le panier
   return keys.length === 0
 }
 
-function formatPrice(amount)
-{
+function formatPrice(amount){
     const formatter = new Intl.NumberFormat('fr-FR', 
     {
       style: 'currency',

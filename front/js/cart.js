@@ -1,26 +1,25 @@
 // // Affichage des produits du panier
 // Lien du panier
-import { getData, isCartEmpty, sendData, formatPrice } from './tools.js';
+import { 
+  getData, isCartEmpty, sendData, formatPrice 
+} from './tools.js';
 
 // Récupération de tous les produits du panier (s'il y en a)
 let keys = Object.keys(localStorage);
 // Vérification du nombre de produits dans le panier
 //let isCartEmpty=keys.length;
 // Si le panier est vide 
-if (isCartEmpty())
-{
+if (isCartEmpty()){
     alert("Votre panier est vide !");
 }
 
-else 
-{
+else {
     const products= await buildCompleteList();
     display(products);
     listen (products);
 }
 
-function display (products)
-{
+function display (products){
     let total = 0;
     let nb_products = 0;
     products.forEach(product => 
@@ -65,8 +64,7 @@ function display (products)
     totalPrice.innerHTML=formatPrice(total);
 }
 
-function listen (products)
-{
+function listen (products){
     products.forEach(product =>
     {
       const input = document.querySelector(`article[data-id="${product.id}"][data-color="${product.color}"] .itemQuantity`);
@@ -108,8 +106,7 @@ function listen (products)
       submitBtn.addEventListener("click", order);
 }
 
-function updatelocalstorage(action, prd)
-{
+function updatelocalstorage(action, prd){
     let products = [];
     products = JSON.parse(localStorage.getItem('products'));
   
@@ -137,8 +134,7 @@ function updatelocalstorage(action, prd)
     }
 }
 
-async function buildCompleteList()
-{
+async function buildCompleteList(){
   let products  = [] ;
   products = JSON.parse(localStorage.getItem('products'));
   // Récupération des données du panier
@@ -155,8 +151,7 @@ async function buildCompleteList()
     return products;
 }
 
-async function order(event)
-{
+async function order(event){
     // Empêcher l'envoi du formulaire par défaut
     event.preventDefault();
 
@@ -168,8 +163,7 @@ async function order(event)
     const email = document.getElementById("email").value;
 
     // Création d'un objet contact à partir des valeurs récupérées
-    const contact = 
-    {
+    const contact = {
         firstName: firstName,
         lastName: lastName,
         address: address,
@@ -207,12 +201,11 @@ async function order(event)
       document.getElementById("cityErrorMsg").innerHTML = "La ville doit contenir au moins 2 lettres et ne peut contenir que des lettres, des espaces et des tirets.";
     } 
 
-if (!emailRegex.test(email)) {
-  document.getElementById("emailErrorMsg").innerHTML = "L'email n'est pas valide.";
-}
+    if (!emailRegex.test(email)) {
+      document.getElementById("emailErrorMsg").innerHTML = "L'email n'est pas valide.";
+    }
 
-    if (nameRegex.test(firstName) && nameRegex.test(lastName) && addressRegex.test(address) && cityRegex.test(city) && emailRegex.test(email))
-    {
+    if (nameRegex.test(firstName) && nameRegex.test(lastName) && addressRegex.test(address) && cityRegex.test(city) && emailRegex.test(email)){
         const products = JSON.parse(localStorage.getItem("products"));
       
         // Transforme chaque produit stocké en objet JavaScript
@@ -220,13 +213,14 @@ if (!emailRegex.test(email)) {
 
         // console.log(productObjects);
         // console.log (contact);
-        const order = 
-        {
+        const order = {
             contact: contact, products: productObjects
         };
 
+        // Récupération du numero de la commande
         const {orderId}= await sendData("http://localhost:3000/api/products/order/",order);
-        console.log(orderId);
+        //console.log(orderId);
+        localStorage.clear();
         location.href="confirmation.html?id=" + orderId
     }
 }

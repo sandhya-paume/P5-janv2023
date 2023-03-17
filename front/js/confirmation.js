@@ -1,8 +1,7 @@
 
 display();
 
-function getIdFromUrl ()
-{
+function getIdFromUrl (){
     // Récupération de l'id de la commande envoyé sur l'url de la page confirmation
     const queryString = window.location.search;
     // Parse l'URL
@@ -11,8 +10,7 @@ function getIdFromUrl ()
     return urlParams.get('id');
 }
 
-function display ()
-{
+function display (){
     const id = getIdFromUrl();
 
   // Description du produit à modifier  id="description"
