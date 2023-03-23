@@ -99,6 +99,7 @@ function cart(){
             }) 
 
             localStorage.setItem('products', JSON.stringify(products));
+            alert('Votre produit a bien été ajouté au panier !');
             // Ajouter un autre produit
             // Récupérer les données du panier
             // Vérifier si le produit que je veux ajouter est déjà présent:
