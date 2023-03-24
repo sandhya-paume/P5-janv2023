@@ -59,9 +59,9 @@ function display (products){
     })
 
     const totalQuantity = document.querySelector("#totalQuantity");
-    totalQuantity.innerHTML=nb_products;
+    totalQuantity.innerText=nb_products;
     const totalPrice = document.querySelector("#totalPrice");
-    totalPrice.innerHTML=formatPrice(total);
+    totalPrice.innerText=formatPrice(total);
 }
 
 function listen (products){
@@ -186,23 +186,23 @@ async function order(event){
     
     // Vérification de chaque champ avec son expression régulière
     if (!nameRegex.test(firstName)) {
-      document.getElementById("firstNameErrorMsg").innerHTML = "Le prénom doit contenir au moins 2 lettres et ne peut contenir que des lettres, des espaces et des tirets.";
+      document.getElementById("firstNameErrorMsg").innerText = "Le prénom doit contenir au moins 2 lettres et ne peut contenir que des lettres, des espaces et des tirets.";
     }
 
     if (!nameRegex.test(lastName)) {
-      document.getElementById("lastNameErrorMsg").innerHTML = "Le nom doit contenir au moins 2 lettres et ne peut contenir que des lettres, des espaces et des tirets.";
+      document.getElementById("lastNameErrorMsg").innerText = "Le nom doit contenir au moins 2 lettres et ne peut contenir que des lettres, des espaces et des tirets.";
     }
 
     if (!addressRegex.test(address)) {
-      document.getElementById("addressErrorMsg").innerHTML = "L'adresse doit contenir au moins 2 caractères et ne peut contenir que des lettres, des chiffres, des espaces et des tirets.";
+      document.getElementById("addressErrorMsg").innerText = "L'adresse doit contenir au moins 2 caractères et ne peut contenir que des lettres, des chiffres, des espaces et des tirets.";
     }
 
     if (!cityRegex.test(city)) {
-      document.getElementById("cityErrorMsg").innerHTML = "La ville doit contenir au moins 2 lettres et ne peut contenir que des lettres, des espaces et des tirets.";
+      document.getElementById("cityErrorMsg").innerText = "La ville doit contenir au moins 2 lettres et ne peut contenir que des lettres, des espaces et des tirets.";
     } 
 
     if (!emailRegex.test(email)) {
-      document.getElementById("emailErrorMsg").innerHTML = "L'email n'est pas valide.";
+      document.getElementById("emailErrorMsg").innerText = "L'email n'est pas valide.";
     }
 
     if (nameRegex.test(firstName) && nameRegex.test(lastName) && addressRegex.test(address) && cityRegex.test(city) && emailRegex.test(email)){

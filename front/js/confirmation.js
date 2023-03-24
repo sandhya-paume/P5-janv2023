@@ -15,5 +15,5 @@ function display (){
 
   // Description du produit à modifier  id="description"
   const commande = document.querySelector("#orderId");
-  commande.innerHTML= id;
+  commande.innerText= id;
 }

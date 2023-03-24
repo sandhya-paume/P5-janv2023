@@ -132,15 +132,16 @@ function display(product){
     // Nom du produit à modifier id="title"
     // QuerySelector permet de récupérer le h1 contenant l'id "title"
     const title = document.querySelector("#title") ;
-    title.innerHTML= product.name;
+    title.innerText= product.name;
 
     // Prix du produit à modifier id="price"
     const price = document.querySelector("#price") ;
-    price.innerHTML= formatPrice(product.price);
+    price.innerText= formatPrice(product.price);
 
     // Description du produit à modifier  id="description"
     const description = document.querySelector("#description");
-    description.innerHTML= product.description;
+    description.innerText= product.description;
+   
 
     // Couleur du produit à parser et à ajouter name="color-select"
     const colors = document.querySelector("#colors");

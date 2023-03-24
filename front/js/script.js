@@ -25,12 +25,12 @@ function display(products){
     // Nom du produit 
     const name= document.createElement("h3");
     name.className='productName';
-    name.innerHTML= product.name;
+    name.innerText= product.name;
 
     // Description du produit
     const description = document.createElement("p");
     description.className='productDescription';
-    description.innerHTML= product.description;
+    description.innerText= product.description;
 
   // Rattachement parent/enfants (DOM)
   // Récupération de l'élément du DOM qui accueillera les fiches produits/canapés
